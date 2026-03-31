@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Estoque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Estoque de: {{ session['nome'] }} ({{ session['perfil'] }})</h1>
+    <a href="/logout">Sair</a>
+
+    <br><br>
+    <a href="/cadastro" style="padding: 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">+ Cadastrar Novo Produto</a>
+    <br><br>
+
+    <table border="1">
+        <tr>
+            <th>Produto</th>
+            <th>Qtd Atual</th>
+            <th>Status</th>
+            <th>Ações</th> </tr>
+        {% for produto in produtos %}
+        <tr {% if produto.quantidade < produto.minimo %} style="color: red; font-weight: bold;" {% endif %}>
+            <td>{{ produto.nome }}</td>
+            <td>{{ produto.quantidade }}</td>
+            <td>
+                {% if produto.quantidade < produto.minimo %}
+                    ⚠️ ESTOQUE BAIXO!
+                {% else %}
+                    ✅ OK
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ url_for('excluir_produto', id=produto.id) }}" 
+                   onclick="return confirm('Tem certeza que deseja apagar este item?')" 
+                   style="color: #dc3545; text-decoration: none; font-weight: bold;">
+                   [Excluir]
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Produto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Cadastrar Novo Produto</h2>
+    <form action="/cadastrar" method="POST">
+        <input type="text" name="nome" placeholder="Nome do Produto" required><br><br>
+        <input type="number" name="quantidade" placeholder="Quantidade" required><br><br>
+        <input type="number" name="minimo" placeholder="Mínimo para Alerta" required><br><br>
+        <button type="submit">Salvar no Banco</button>
+    </form>
+    <br>
+    <a href="/dashboard">Voltar</a>
+</body>
+</html>
